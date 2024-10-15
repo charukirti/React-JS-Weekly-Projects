@@ -1,0 +1,98 @@
+.app {
+  border: 2px solid red;
+  max-width: 75rem;
+  margin: 0 auto;
+}
+
+.header {
+  & h1 {
+    font-size: 3rem;
+    font-weight: 300;
+  }
+
+  margin-bottom: 2rem;
+}
+
+/* main component styles */
+
+.add_task--section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+/* add task form component styles */
+
+.add-task-form__wrapper {
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  left: 0;
+  top: 0;
+}
+
+.add-task-form {
+  width: min(90%, 550px);
+  border: 2px solid red;
+}
+
+.add-task-form h2 {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.add-task-form form {
+  display: flex;
+  flex-direction: column;
+  margin: 2em;
+}
+
+.add-task-form label {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+}
+
+.add-task-form input,
+textarea {
+  font-size: calc(16px + 0.2vw);
+  margin: 0.6em 0 1em;
+  font-weight: 400;
+  font-family: inherit;
+  padding: 0.5em;
+}
+
+.add-task-form select {
+  width: 30%;
+  align-self: flex-start;
+  padding: 0.8em;
+  text-align: left;
+  font-size: calc(16px + 0.2vw);
+}
+
+.add-task-form .add-task-form-btn {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: end;
+  margin-left: 0.6em;
+}
+
+.btn {
+  height: 2.25em;
+  width: 5em;
+  font-size: calc(14px + 0.15vw);
+  border: 0;
+  border-radius: 0.35em;
+  cursor: pointer;
+}
+
+.add__btn {
+}
+
+.close__btn {
+}
