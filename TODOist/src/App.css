@@ -1,13 +1,21 @@
+#root {
+  margin: 0 1em;
+}
+
 .app {
-  border: 2px solid red;
-  max-width: 75rem;
+  border: 2px solid #4a4947;
+  max-width: 50rem;
   margin: 0 auto;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 10px;
+  background-color: #f8f9fa;
 }
 
 .header {
   & h1 {
-    font-size: 3rem;
     font-weight: 300;
+    color: #f95454;
   }
 
   margin-bottom: 2rem;
@@ -22,6 +30,14 @@
   margin-bottom: 2rem;
 }
 
+.add_task--date h2 {
+  color: #0d92f4;
+  font-weight: 600;
+}
+
+.add_task--time {
+  display: inline-block;
+}
 /* add task form component styles */
 
 .add-task-form__wrapper {
@@ -37,12 +53,17 @@
 
 .add-task-form {
   width: min(90%, 550px);
-  border: 2px solid red;
+  background: #f8f9fa;
+  border-radius: 15px;
 }
 
 .add-task-form h2 {
   text-align: center;
-  font-size: 2rem;
+  font-size: 1.25rem;
+  color: #f95454;
+  background: #e2f1e7;
+  padding: 0.75em 0;
+  border-radius: 10px 10px 0 0;
 }
 
 .add-task-form form {
@@ -52,9 +73,10 @@
 }
 
 .add-task-form label {
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   font-weight: 700;
   margin-bottom: 0.5em;
+  color: #0d92f4;
 }
 
 .add-task-form input,
@@ -64,14 +86,17 @@ textarea {
   font-weight: 400;
   font-family: inherit;
   padding: 0.5em;
+  border-radius: 5px;
+  border: 1px solid #4a4947;
 }
 
 .add-task-form select {
-  width: 30%;
+  width: 100%;
   align-self: flex-start;
-  padding: 0.8em;
+  padding: 0.5em;
   text-align: left;
   font-size: calc(16px + 0.2vw);
+  margin-bottom: 2rem;
 }
 
 .add-task-form .add-task-form-btn {
@@ -84,15 +109,167 @@ textarea {
 
 .btn {
   height: 2.25em;
-  width: 5em;
-  font-size: calc(14px + 0.15vw);
+  width: 8rem;
+  font-size: calc(16px + 0.15vw);
   border: 0;
   border-radius: 0.35em;
   cursor: pointer;
 }
 
+.add-task__btn {
+  position: relative;
+  width: 8em;
+  height: 2.5em;
+  color: #fff;
+  background-color: #006bff;
+  font-size: calc(14px + 0.25vw);
+  border: 0;
+  border-radius: 0.5em;
+  cursor: pointer;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
 .add__btn {
+  background-color: #00ff9c;
+  color: #fff;
+  font-weight: 800;
 }
 
 .close__btn {
+  background: #f8f9fa;
+}
+
+.blur {
+  background-color: #00000080;
+}
+
+/* filter and sort component */
+
+.filter_sort {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 2rem;
+}
+
+.filterBy label,
+.sortBy label {
+  font-size: calc(16px + 0.3vw);
+  color: #006bff;
+  font-weight: 400;
+}
+
+.filterBy select,
+.sortBy select {
+  padding: 0.3em;
+  text-align: left;
+  font-size: calc(16px + 0.2vw);
+  margin-top: 0.5em;
+}
+
+/* TaskList component */
+
+.task_list {
+  width: 100%;
+  padding: 0.6em;
+}
+
+/* Task component */
+
+.task_item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-radius: 0.5em;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1.25em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: 2px solid #e2f1e7;
+}
+
+@media (max-width: 768px) {
+  .task_item {
+    flex-wrap: wrap;
+  }
+
+  .filter_sort {
+    flex-wrap: wrap;
+  }
+
+  .filterBy,
+  .sortBy {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.task_item--name {
+  font-size: calc(16px + 0.4vw);
+  font-weight: 600;
+}
+
+.task_item--btns {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  font-size: 1.4rem;
+}
+
+/* button styles */
+
+.btn__complete {
+  color: #00ff9c;
+  cursor: pointer;
+}
+
+.btn__edit {
+  cursor: pointer;
+  color: #0d92f4;
+}
+
+.btn__delete {
+  cursor: pointer;
+  color: #f95454;
+}
+
+/* priority styles */
+
+.task_item:before {
+  content: "";
+  position: absolute;
+  background-color: #4a4947;
+  left: 0;
+  height: 100%;
+  width: 6px;
+  border-radius: 0.5em 0 0 0.5em;
+}
+
+.task_item.low:before {
+  background-color: #006bff;
+}
+.task_item.medium:before {
+  background-color: #f2be22;
+}
+.task_item.high:before {
+  background-color: #f95454;
+}
+
+/* footer */
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+footer .clear_tasks {
+  color: #f95454;
+  cursor: pointer;
 }

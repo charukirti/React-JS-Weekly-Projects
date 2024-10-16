@@ -1,8 +1,9 @@
-export default function Footer() {
+export default function Footer({tasks}) {
+  const taskLength = tasks.length;
   return (
     <footer>
-      <p>6 tasks left</p>
-      <p>clear completed tasks</p>
+      <p className="total_tasks">{taskLength} tasks left</p>
+      <p className="clear_tasks">clear completed tasks</p>
     </footer>
   );
 }

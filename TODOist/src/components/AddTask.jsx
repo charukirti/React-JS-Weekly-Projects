@@ -1,16 +1,36 @@
-export default function AddTask({ handleClose }) {
+import { useEffect } from "react";
+
+export default function AddTask({ isOpen, handleClose }) {
+  useEffect(
+    function () {
+      function handleKeyDown(e) {
+        if (e.key === "Escape") {
+          handleClose();
+        }
+      }
+
+      if (isOpen) {
+        document.addEventListener("keydown", handleKeyDown);
+      }
+
+      return () => document.removeEventListener("keydown", handleKeyDown);
+    },
+    [isOpen, handleClose]
+  );
+
   function handleSubmit(e) {
     e.preventDefault();
   }
   return (
-    <div className="add-task-form__wrapper" onSubmit={handleSubmit}>
+    <div
+      className={`add-task-form__wrapper ${isOpen ? "blur" : ""}`}
+      onSubmit={handleSubmit}
+    >
       <div className="add-task-form">
         <h2>Add Task</h2>
         <form>
           <label htmlFor="title">Task Title</label>
           <input type="text" id="title" />
-          <label htmlFor="description">Description</label>
-          <textarea name="description" id="description" />
           <label htmlFor="priority">Priority:</label>
           <select name="priority" id="priority">
             <option value="high">High</option>
