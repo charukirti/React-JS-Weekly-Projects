@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 
-export default function AddTask({ isOpen, handleClose, dispatch }) {
+export default function EditTask({ isOpen, handleClose, dispatch }) {
   const [taskName, setTaskName] = useState("");
   const [priority, setPriority] = useState("low");
   const [description, setDescription] = useState("");

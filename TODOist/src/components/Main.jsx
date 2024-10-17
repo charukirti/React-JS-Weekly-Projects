@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import AddTask from "./AddTask";
 
-export default function Main({ isOpen, handleModalClose, handleModalOpen }) {
+export default function Main({ isOpen, dispatch }) {
   const months = [
     "January",
     "February",
@@ -51,6 +51,14 @@ export default function Main({ isOpen, handleModalClose, handleModalOpen }) {
 
   const formattedDate = `${formattedDay} ${month}, ${weekDay}`;
 
+  function handleModalOpen() {
+    dispatch({ type: "OPEN_MODAL" });
+  }
+
+  function handleModalClose() {
+    dispatch({ type: "CLOSE_MODAL" });
+  }
+
   return (
     <main className="add_task--section">
       <div className="add_task--date">
@@ -63,7 +71,13 @@ export default function Main({ isOpen, handleModalClose, handleModalOpen }) {
         </span>
         Add Task
       </button>
-      {isOpen && <AddTask handleClose={handleModalClose} isOpen={isOpen} />}
+      {isOpen && (
+        <AddTask
+          handleClose={handleModalClose}
+          isOpen={isOpen}
+          dispatch={dispatch}
+        />
+      )}
     </main>
   );
 }
