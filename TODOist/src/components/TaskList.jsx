@@ -4,7 +4,7 @@ export default function TaskList({ tasks, dispatch, isEditModalOpen }) {
   return (
     <>
       {tasks.length === 0 ? (
-        <p className="warning">Start your day by adding your tasks...</p>
+        <p className="warning">Start your day by add your tasks...</p>
       ) : (
         <section className="task_list">
           {tasks.map((task, index) => (
@@ -12,7 +12,7 @@ export default function TaskList({ tasks, dispatch, isEditModalOpen }) {
               key={index}
               task={task}
               dispatch={dispatch}
-              editModal={isEditModalOpen}
+              isEditModalOpen={isEditModalOpen}
             />
           ))}
         </section>

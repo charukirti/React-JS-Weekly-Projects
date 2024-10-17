@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import { v4 as uuid } from "uuid";
 
-export default function EditTask({ isOpen, handleClose, dispatch }) {
-  const [taskName, setTaskName] = useState("");
-  const [priority, setPriority] = useState("low");
-  const [description, setDescription] = useState("");
-
+export default function EditTask({ isOpen, handleClose, task, dispatch }) {
+  const [taskName, setTaskName] = useState(task.taskName || "");
+  const [priority, setPriority] = useState(task.priority || "low");
+  const [description, setDescription] = useState(task.desc || "");
   useEffect(
     function () {
       function handleKeyDown(e) {
@@ -26,19 +24,20 @@ export default function EditTask({ isOpen, handleClose, dispatch }) {
   function handleSubmit(e) {
     e.preventDefault();
     if (!taskName.trim() && !description.trim()) return;
+
+    const updatedTask = {
+      ...task,
+      taskName: taskName,
+      desc: description,
+      priority: priority,
+    };
+
     dispatch({
-      type: "SET_TASK",
-      payload: {
-        id: uuid(),
-        taskName: taskName,
-        priority: priority,
-        isComplete: false,
-      },
+      type: "EDIT_TASK",
+      payload: updatedTask,
     });
 
     handleClose();
-    setTaskName("");
-    setPriority("low");
   }
 
   function handleSetTaskName(e) {
@@ -59,7 +58,7 @@ export default function EditTask({ isOpen, handleClose, dispatch }) {
       onSubmit={handleSubmit}
     >
       <div className="add-task-form">
-        <h2>Add Task</h2>
+        <h2>Edit Task</h2>
         <form>
           <label htmlFor="title">Task Title</label>
           <input
@@ -87,7 +86,7 @@ export default function EditTask({ isOpen, handleClose, dispatch }) {
             <option value="low">Low</option>
           </select>
           <div className="add-task-form-btn">
-            <button className="btn add__btn">Add</button>
+            <button className="btn add__btn">Save Changes</button>
             <button className="btn close__btn" onClick={handleClose}>
               Close
             </button>

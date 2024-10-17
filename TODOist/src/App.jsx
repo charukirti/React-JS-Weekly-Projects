@@ -18,6 +18,8 @@ function renderTasks() {
 const initialState = {
   isModalOpen: false,
   tasks: renderTasks(),
+  isEditModalOpen: false,
+  taskToEdit: null,
 };
 
 function reducer(state, action) {
@@ -27,6 +29,12 @@ function reducer(state, action) {
 
     case "CLOSE_MODAL":
       return { ...state, isModalOpen: false };
+
+    case "TOGGLE_EDIT_MODE":
+      return { ...state, isEditModalOpen: true, taskToEdit: action.payload };
+
+    case "CLOSE_EDIT_MODE":
+      return { ...state, isEditModalOpen: false, taskToEdit: null };
 
     case "SET_TASK":
       return { ...state, tasks: [...state.tasks, action.payload] };
@@ -40,25 +48,27 @@ function reducer(state, action) {
             : task
         ),
       };
+    case "EDIT_TASK":
+      return {
+        ...state,
+        tasks: state.tasks.map((task) =>
+          task.id === action.payload.id ? { ...action.payload } : task
+        ),
+      };
 
     case "TOGGLE_DELETE":
       return {
         ...state,
         tasks: state.tasks.filter((task) => task.id !== action.payload),
       };
-
-    case "TOGGLE_EDIT":
-      return {
-        ...state,
-        tasks: state.tasks.map((task) =>
-          task.id === action.payload.id ? { ...task, ...action.payload } : task
-        ),
-      };
   }
 }
 
 export default function App() {
-  const [{ isModalOpen, tasks }, dispatch] = useReducer(reducer, initialState);
+  const [{ isModalOpen, tasks, isEditModalOpen }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
@@ -72,7 +82,7 @@ export default function App() {
       <TaskList
         tasks={tasks}
         dispatch={dispatch}
-        isEditModalOpen={isModalOpen}
+        isEditModalOpen={isEditModalOpen}
       />
       <Footer tasks={tasks} />
     </div>

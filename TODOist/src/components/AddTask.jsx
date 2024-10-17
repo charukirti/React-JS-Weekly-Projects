@@ -31,6 +31,7 @@ export default function AddTask({ isOpen, handleClose, dispatch }) {
       payload: {
         id: uuid(),
         taskName: taskName,
+        desc: description,
         priority: priority,
         isComplete: false,
       },
