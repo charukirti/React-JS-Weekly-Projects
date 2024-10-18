@@ -1,10 +1,11 @@
 import Task from "./Task";
+import EditTask from "./EditTask"; // Importing EditTask directly here
 
-export default function TaskList({ tasks, dispatch, isEditModalOpen }) {
+export default function TaskList({ tasks, dispatch, isEditModalOpen, taskToEdit }) {
   return (
     <>
       {tasks.length === 0 ? (
-        <p className="warning">Start your day by add your tasks...</p>
+        <p className="warning">Start your day by adding your tasks...</p>
       ) : (
         <section className="task_list">
           {tasks.map((task, index) => (
@@ -12,10 +13,18 @@ export default function TaskList({ tasks, dispatch, isEditModalOpen }) {
               key={index}
               task={task}
               dispatch={dispatch}
-              isEditModalOpen={isEditModalOpen}
             />
           ))}
         </section>
+      )}
+      
+      {isEditModalOpen && (
+        <EditTask
+          task={taskToEdit} 
+          dispatch={dispatch}
+          isOpen={isEditModalOpen}
+          handleClose={() => dispatch({ type: "CLOSE_EDIT_MODE" })}
+        />
       )}
     </>
   );

@@ -119,8 +119,10 @@ function filterTasks(tasks, filter) {
 }
 
 export default function App() {
-  const [{ isModalOpen, tasks, isEditModalOpen, filter, priority }, dispatch] =
-    useReducer(reducer, initialState);
+  const [
+    { isModalOpen, tasks, isEditModalOpen, filter, priority, taskToEdit },
+    dispatch,
+  ] = useReducer(reducer, initialState);
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
@@ -138,6 +140,7 @@ export default function App() {
         tasks={filteredTasks}
         dispatch={dispatch}
         isEditModalOpen={isEditModalOpen}
+        taskToEdit={taskToEdit}
       />
       <Footer tasks={tasks} dispatch={dispatch} />
     </div>
