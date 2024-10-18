@@ -20,6 +20,27 @@ const initialState = {
   tasks: renderTasks(),
   isEditModalOpen: false,
   taskToEdit: null,
+  filter: "all",
+  priority: "low",
+};
+
+const sortTasks = (tasks, priority) => {
+  switch (priority) {
+    case "low":
+      return tasks.slice().sort((a, b) => (a.priority === "low" ? -1 : 1));
+
+    case "medium":
+      return tasks
+        .slice()
+        .sort((a, b) =>
+          a.priority === "medium" ? -1 : a.priority === "low" ? -2 : 1
+        );
+
+    case "high":
+      return tasks.slice().sort((a, b) => (a.priority === "high" ? -1 : 1));
+    default:
+      return tasks;
+  }
 };
 
 function reducer(state, action) {
@@ -61,30 +82,64 @@ function reducer(state, action) {
         ...state,
         tasks: state.tasks.filter((task) => task.id !== action.payload),
       };
+
+    case "TOGGLE_FILTER":
+      return {
+        ...state,
+        filter: action.payload,
+      };
+
+    case "TOGGLE_SORT":
+      return {
+        ...state,
+        priority: action.payload,
+        tasks: sortTasks(state.tasks.slice(), action.payload),
+      };
+
+    case "CLEAR_COMPLETED":
+      return {
+        ...state,
+        tasks: state.tasks.filter((task) => task.isComplete === false),
+      };
+
+    default:
+      return state;
+  }
+}
+
+function filterTasks(tasks, filter) {
+  switch (filter) {
+    case "active":
+      return tasks.filter((task) => task.isComplete === false);
+    case "completed":
+      return tasks.filter((task) => task.isComplete);
+    default:
+      return tasks;
   }
 }
 
 export default function App() {
-  const [{ isModalOpen, tasks, isEditModalOpen }, dispatch] = useReducer(
-    reducer,
-    initialState
-  );
+  const [{ isModalOpen, tasks, isEditModalOpen, filter, priority }, dispatch] =
+    useReducer(reducer, initialState);
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
   console.log(tasks);
+
+  const filteredTasks = sortTasks(filterTasks(tasks, filter), priority);
+
   return (
     <div className="app">
       <Header />
       <Main isOpen={isModalOpen} dispatch={dispatch} />
-      <FilterSort />
+      <FilterSort dispatch={dispatch} />
       <TaskList
-        tasks={tasks}
+        tasks={filteredTasks}
         dispatch={dispatch}
         isEditModalOpen={isEditModalOpen}
       />
-      <Footer tasks={tasks} />
+      <Footer tasks={tasks} dispatch={dispatch} />
     </div>
   );
 }

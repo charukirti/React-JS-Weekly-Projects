@@ -1,9 +1,31 @@
-export default function FilterSort() {
+import { useState } from "react";
+
+export default function FilterSort({ dispatch }) {
+  const [filter, setFilter] = useState();
+  const [priority, setPriority] = useState("low");
+
+  function handleFilterChange(e) {
+    let currentFilter = e.target.value;
+    setFilter(currentFilter);
+    dispatch({ type: "TOGGLE_FILTER", payload: currentFilter });
+  }
+
+  function handlePriorityChange(e) {
+    let currentPriority = e.target.value;
+    setPriority(currentPriority);
+    dispatch({ type: "TOGGLE_SORT", payload: currentPriority });
+  }
+
   return (
     <section className="filter_sort">
       <div className="filterBy">
         <label htmlFor="filterBy">Filter by category: </label>
-        <select name="filterBy" id="filterBy">
+        <select
+          name="filterBy"
+          id="filterBy"
+          value={filter}
+          onChange={handleFilterChange}
+        >
           <option value="all">All</option>
           <option value="active">Active</option>
           <option value="completed">Completed</option>
@@ -12,10 +34,15 @@ export default function FilterSort() {
 
       <div className="sortBy">
         <label htmlFor="sortBy">Sort by Priority: </label>
-        <select name="sortBy" id="sortBy">
-          <option value="">Low</option>
-          <option value="">Medium</option>
-          <option value="">High</option>
+        <select
+          name="sortBy"
+          id="sortBy"
+          value={priority}
+          onChange={handlePriorityChange}
+        >
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
         </select>
       </div>
     </section>
