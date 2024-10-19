@@ -3,12 +3,22 @@ This repository contains my weekly React.js projects to practice and improve my 
 
 ## Projects Overview
 
-| Project Name          | Code Link                                             | Description                               | Key Concepts Covered   | Features            |
-|-----------------------|-------------------------------------------------------|-------------------------------------------|------------------------|---------------------|
-| Todo List App         |                                                       | A simple task management app              |                        |                     |
-| GitHub User Search    |                                                       | Search and view GitHub users' profiles    |                        |                     |
-| Movies Hub            |                                                       | Search movies and create a watchlist      |                        |                     |
-| Expense Tracker       |                                                       | Track and categorize expenses             |                        |                     |
-| Recipe Finder         |                                                       | Search recipes and manage favorites       |                        |                     |
+### Project Name : 🗓️ TODOist : A simple task manager
 
-### and other projects are  about to include in this repository
+### :paperclip: Code link  [here](https://github.com/charukirti/React-JS-Weekly-Projects/tree/main/TODOist)
+
+### Features: 
+  - Basic functionality like `add`,`check completed`, `delete`, `edit` etc.
+  - Filter task based on condition like `all tasks`, `active tasks`, `completed tasks`
+  - Sort task based on priority `low`, `medium`, `high`
+
+### Concepts used: 
+  - `contextAPI`
+  - `local storage` to save tasks
+  - Hooks : `useState`, `useReducer`, `useContext, useEffect`
+    
+  
+
+
+
+
