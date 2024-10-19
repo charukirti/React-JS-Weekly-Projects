@@ -1,8 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import AddTask from "./AddTask";
+import useTaskContext from "../hooks/useTaskContext";
 
-export default function Main({ isOpen, dispatch }) {
+export default function Main() {
+  const { isModalOpen, dispatch } = useTaskContext();
+
   const months = [
     "January",
     "February",
@@ -71,10 +74,10 @@ export default function Main({ isOpen, dispatch }) {
         </span>
         Add Task
       </button>
-      {isOpen && (
+      {isModalOpen && (
         <AddTask
           handleClose={handleModalClose}
-          isOpen={isOpen}
+          isModalOpen={isModalOpen}
           dispatch={dispatch}
         />
       )}

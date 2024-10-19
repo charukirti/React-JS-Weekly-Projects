@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 
-export default function AddTask({ isOpen, handleClose, dispatch }) {
+export default function AddTask({ isModalOpen, handleClose, dispatch }) {
   const [taskName, setTaskName] = useState("");
   const [priority, setPriority] = useState("low");
   const [description, setDescription] = useState("");
@@ -14,13 +14,13 @@ export default function AddTask({ isOpen, handleClose, dispatch }) {
         }
       }
 
-      if (isOpen) {
+      if (isModalOpen) {
         document.addEventListener("keydown", handleKeyDown);
       }
 
       return () => document.removeEventListener("keydown", handleKeyDown);
     },
-    [isOpen, handleClose]
+    [isModalOpen, handleClose]
   );
 
   function handleSubmit(e) {
@@ -56,7 +56,7 @@ export default function AddTask({ isOpen, handleClose, dispatch }) {
 
   return (
     <div
-      className={`add-task-form__wrapper ${isOpen ? "blur" : ""}`}
+      className={`add-task-form__wrapper ${isModalOpen ? "blur" : ""}`}
       onSubmit={handleSubmit}
     >
       <div className="add-task-form">

@@ -1,8 +1,11 @@
 import { useState } from "react";
+import useTaskContext from "../hooks/useTaskContext";
 
-export default function FilterSort({ dispatch }) {
+export default function FilterSort() {
   const [filter, setFilter] = useState();
   const [priority, setPriority] = useState("low");
+
+  const { dispatch } = useTaskContext();
 
   function handleFilterChange(e) {
     let currentFilter = e.target.value;
